@@ -34,11 +34,10 @@ public class XBattery implements IXposedHookLoadPackage {
             int level = (int) ((100.0d * ((double) intent.getIntExtra("level", 0))) / ((double) intent.getIntExtra("scale", 100)));
 
             if (lockScreenTextView != null) {
-                lockScreenTextView.setText(String.format("%s%%", new Object[]{Integer.valueOf(level)}));
+                lockScreenTextView.setText(String.format("%s%%", level));
             }
             if (statusBarTextView != null) {
-                statusBarTextView.setText(String.format("%s%%", new Object[]{Integer.valueOf(level)}));
-                return;
+                statusBarTextView.setText(String.format("%s%%", level));
             }
             return;
 
@@ -124,8 +123,8 @@ public class XBattery implements IXposedHookLoadPackage {
 
             textView.setTypeface(Typeface.create("sans-serif-light", Typeface.BOLD));
 
-            textView.setPadding(20, 0, 0, 0);
-            viewGroup.addView(textView, viewGroup.getChildCount());
+            textView.setPadding(0, 0, 20, 0);
+            viewGroup.addView(textView, viewGroup.getChildCount() -1);
 
             textView.setVisibility(View.VISIBLE);
         }
